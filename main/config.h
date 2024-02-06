@@ -1,3 +1,5 @@
+
+
 //mg90s.C
 #define SERVO_0_GPIO 18
 #define SERVO_1_GPIO 21
@@ -9,6 +11,6 @@
 #define SERVO_MAX_PULSEWIDTH 2500 // Maximum pulse width in microsecond 180 degrees
 
 //TCP.C
-#define SERVER_IP "192.168.1.100" 
-#define SERVER_PORT 1234 
+#define SERVER_IP "192.168.3.194" 
+#define SERVER_PORT 8080 
 

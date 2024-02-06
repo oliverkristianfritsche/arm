@@ -3,7 +3,8 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-
+#include <string.h>
+#include <pthread.h>
 // Define states
 typedef enum {
     INITIAL_STATE,
@@ -19,6 +20,8 @@ typedef enum {
 // Current state of the state machine
 extern volatile State currentState;
 
+extern volatile float joint_angles[6]; // Initialize all angles to 90
+
 // Functions associated with states
 void functionInInitialState();
 void functionInTcpReaderState(); // This function should be defined elsewhere
@@ -27,5 +30,10 @@ void functionInTcpReaderState(); // This function should be defined elsewhere
 void setState(State newState);
 void handleEvent(Event event);
 void stateMachineTask(void *pvParameters);
+
+
+// Function to update joint angles from received data
+void update_joint_angles(char *angles);
+
 
 #endif // STATEMACHINE_H

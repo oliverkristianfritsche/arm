@@ -2,17 +2,8 @@
 #include "mg90s.h"
 #include <pthread.h>
 #include "statemachine.h"
-extern volatile float joint_angles[6] = {90}; // Initialize all angles to 90
-
-void update_joint_angles(char *angles) {
-    //6 singles separated by commas
-    char *token = strtok(angles, ",");
-    for (int i = 0; i < 6; i++) {
-        joint_angles[i] = atof(token);
-        token = strtok(NULL, ",");
-    }
-}
-
+#include "TCP.h"
+#include "config.h"
 void *servo_task(void *vargp) {
     while (1) {
         for (int i = 0; i < 6; i++) {
@@ -30,6 +21,17 @@ void app_main(void)
     pthread_t state_thread;
     pthread_create(&servo_thread, NULL, servo_task, NULL);
     pthread_create(&state_thread, NULL, stateMachineTask, NULL);
+    
+    
 
+    addConnection(SERVER_IP, SERVER_PORT);
+  
+
+    pthread_t managerThread;
+    pthread_create(&managerThread, NULL, connectionManager, NULL);
+
+    pthread_join(managerThread, NULL); // In a real application, you might not join here.
+
+    
 
 }
