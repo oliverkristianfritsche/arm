@@ -4,6 +4,8 @@
 #include "statemachine.h"
 #include "TCP.h"
 #include "config.h"
+#include "wifi_manager.h"
+
 void *servo_task(void *vargp) {
     while (1) {
         for (int i = 0; i < 6; i++) {
@@ -15,12 +17,13 @@ void *servo_task(void *vargp) {
 
 void app_main(void)
 {
+    connect_to_wifi(WIFI_SSID, WIFI_PASSWORD);
     mcpwm_initialize_all();
 
     pthread_t servo_thread;
     pthread_t state_thread;
-    pthread_create(&servo_thread, NULL, servo_task, NULL);
-    pthread_create(&state_thread, NULL, stateMachineTask, NULL);
+    //pthread_create(&servo_thread, NULL, servo_task, NULL);
+    //pthread_create(&state_thread, NULL, stateMachineTask, NULL);
     
     
 
